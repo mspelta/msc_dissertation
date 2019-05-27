@@ -22,7 +22,6 @@ clc;clear;format shortEng;
 numberCoeff = 16;   
 N = numberCoeff - 1;
 L = 3;      % number of previous values used in this algorithm AP 
-numberRuns = 20; %250;	% 10 % change this value later
 numberSamples = 4000;  % Total number of samples for each iteration
 K = 1000;  % Transition instant of the reference system
 
@@ -68,7 +67,6 @@ for simulation_setup = [ 1 3 4 6] %1:6 %[3 6] %5:6 %1:6
     end
     % =================================================================== %
     
-    rng default    % "rng default" might also be used. For reproducibility!!
     
     matrix_squared_error_values = [];
     matrix_cost_function_values = [];
@@ -109,7 +107,6 @@ for simulation_setup = [ 1 3 4 6] %1:6 %[3 6] %5:6 %1:6
                     ar_input(counter) = 0.95*ar_input(counter-1) + randn(1);
                 else                    % AR4
                     ar_input(counter) = 0.95*ar_input(counter-1) + 0.19*ar_input(counter-2) + ...
-                        0.09*ar_input(counter-3) - 0.5*ar_input(counter-4) + + randn(1);
                 end
                 % ------------------------------------------------------- %
                 x_vec_input(:,counter) = ar_input(counter:-1:(counter - numberCoeff + 1));  % current input vector
@@ -156,7 +153,6 @@ for simulation_setup = [ 1 3 4 6] %1:6 %[3 6] %5:6 %1:6
             mean_squared_error_values(counter) = mean(matrix_squared_error_values(:,counter));
             mean_cost_function_values(counter) = mean(matrix_cost_function_values(:,counter));
             mean_misalignment_values(counter) = mean(matrix_misalignment_values(:,counter));
-            mean_interval_values(counter) = mean(matrix_interval_values(:,counter));
         end
 
         
